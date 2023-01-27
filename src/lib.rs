@@ -4,7 +4,7 @@
 use bevy::prelude::{App, IntoSystemDescriptor, Plugin};
 pub use bevy_console_derive::ConsoleCommand;
 pub use bevy_console_parser::{Value, ValueRawOwned};
-// use bevy_egui::{EguiContext, EguiPlugin};
+use bevy_egui::{EguiContext, EguiPlugin};
 
 use crate::commands::clear::{clear_command, ClearCommand};
 use crate::commands::exit::{exit_command, ExitCommand};
@@ -42,5 +42,8 @@ impl Plugin for ConsolePlugin {
 
         // Don't create an egui context if one already exists.
         // This can happen if another plugin is using egui and was installed before us.
+        if !app.is_plugin_added::<EguiPlugin>() {
+            app.add_plugin(EguiPlugin);
+        }
     }
 }
