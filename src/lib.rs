@@ -42,7 +42,7 @@ impl Plugin for ConsolePlugin {
 
         // Don't create an egui context if one already exists.
         // This can happen if another plugin is using egui and was installed before us.
-        if !app.world.contains_resource::<EguiContext>() {
+        if !app.is_plugin_added::<EguiPlugin>() {
             app.add_plugin(EguiPlugin);
         }
     }
